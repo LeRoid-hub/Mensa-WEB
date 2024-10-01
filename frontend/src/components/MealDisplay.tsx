@@ -9,12 +9,17 @@ interface MealProps {
 const MealDisplay: React.FC<MealProps> = ({ meal }) => {
   return (
       <>
-      <h2 className="text-2xl font-bold mb-4">{meal.name}</h2>
-      <p className="text-gray-600 mb-4">{meal.description}</p>
-      <p className="text-lg font-semibold text-gray-800">${meal.price.toFixed(2)}</p>
+      <div className="flex ">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">{meal.name}</h2>
+          <p className="text-gray-600 mb-4">{meal.description}</p>
+        </div>
+        <div>
+        <p className="text-lg font-semibold text-gray-800">${meal.price.toFixed(2)}</p>
+        </div>
+      </div>
       </>
   );
 };
 
 export default MealDisplay;
-
