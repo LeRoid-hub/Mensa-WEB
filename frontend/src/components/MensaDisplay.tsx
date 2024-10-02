@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { Mensa } from '../types/Mensa';
+import { Counter } from '../types/Counter';
 import CounterDisplay from './CounterDisplay';
 
-interface MensaProps {
-  mensa: Mensa;
-}
-
-const MensaDisplay: React.FC<MensaProps> = ({ mensa }) => {
-    const [mensen, setMensa] = useState<Mensa | null>(null);
+const MensaDisplay: React.FC = () => {
+    const [items, setItems] = useState<Counter[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('https://mensa.barfuss.email/mensa/bremen/mensa-neustadtswall', {
-            method: 'GET',
-            mode: 'cors',
+        // Example API call
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://mensa.barfuss.email/mensa/bremen/mensa-neustadtswall');
+                const json = await response.json();
 
-        })
-            .then((response) => {
-                console.log(response.body);
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setMensa(data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    });
+                // Extract the array from the nested JSON
+                setItems(json.Days[0].Menu)
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch data');
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
-        <>
-            <h1 className="text-3xl font-bold mb-6">{mensa.name}</h1>
-            {mensa.counter?.length > 0 ? (
-                mensa.counter.map((counter, index) => <CounterDisplay key={index} counter={counter} />)
-            ) : null}
-        </>
+        <div>
+            {items.map((item) => (
+                console.log(item),
+                // Pass each item to the ItemComponent
+                <CounterDisplay counter={item} />
+            ))}
+        </div>
     );
 };
 
-export default MensaDisplay;
+export default MensaDisplay
