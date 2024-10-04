@@ -1,7 +1,7 @@
 // src/types/Meal.ts
 export interface Meal {
-  name: string;
-  description: string;
-  price: number;
+  Name: string;
+  Price: string;
+  Attributes: string;
 }
 

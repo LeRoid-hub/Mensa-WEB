@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Mensa } from '../types/Mensa';
-import { Counter } from '../types/Counter';
 import CounterDisplay from './CounterDisplay';
+import { Menu } from '../types/Menu';
 
 const MensaDisplay: React.FC = () => {
-    const [items, setItems] = useState<Counter[]>([]);
+    const [items, setItems] = useState<Mensa[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +16,8 @@ const MensaDisplay: React.FC = () => {
                 const json = await response.json();
 
                 // Extract the array from the nested JSON
-                setItems(json.Days[0].Menu)
+                console.log(json);
+                setItems(json)
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch data');
@@ -30,12 +31,15 @@ const MensaDisplay: React.FC = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
+    var menus: Menu[] = items.Days[0].Menu;
+    console.log(menus);
+
     return (
         <div>
-            {items.map((item) => (
+            {menus.map((item) => (
                 console.log(item),
                 // Pass each item to the ItemComponent
-                <CounterDisplay counter={item} />
+                <CounterDisplay menu={item} />
             ))}
         </div>
     );

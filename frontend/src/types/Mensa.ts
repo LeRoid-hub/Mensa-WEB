@@ -1,7 +1,6 @@
-import { Counter } from './Counter';
+import { Day } from './Day';
 export interface Mensa {
-  name: string;
-  counter: Counter[];
+  Name: string;
+  Location: string;
+  Days: Day[];
 }
-
-
