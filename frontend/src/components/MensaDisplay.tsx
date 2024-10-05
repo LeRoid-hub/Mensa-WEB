@@ -4,7 +4,7 @@ import CounterDisplay from './CounterDisplay';
 import { Menu } from '../types/Menu';
 
 const MensaDisplay: React.FC = () => {
-    const [items, setItems] = useState<Mensa[]>([]);
+    const [items, setItems] = useState<Mensa>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +16,6 @@ const MensaDisplay: React.FC = () => {
                 const json = await response.json();
 
                 // Extract the array from the nested JSON
-                console.log(json);
                 setItems(json)
                 setLoading(false);
             } catch (err) {
@@ -31,13 +30,13 @@ const MensaDisplay: React.FC = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    var menus: Menu[] = items.Days[0].Menu;
+    console.log(items);
+    var menus: Menu[] = items?.Days[0].Menu || [];
     console.log(menus);
 
     return (
         <div>
             {menus.map((item) => (
-                console.log(item),
                 // Pass each item to the ItemComponent
                 <CounterDisplay menu={item} />
             ))}
