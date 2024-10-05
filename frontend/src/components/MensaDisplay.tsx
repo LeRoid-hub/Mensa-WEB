@@ -3,7 +3,11 @@ import { Mensa } from '../types/Mensa';
 import CounterDisplay from './CounterDisplay';
 import { Menu } from '../types/Menu';
 
-const MensaDisplay: React.FC = () => {
+interface MensaProps {
+    link: string;
+}
+
+const MensaDisplay: React.FC<MensaProps> = ({link}) => {
     const [items, setItems] = useState<Mensa>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -12,7 +16,8 @@ const MensaDisplay: React.FC = () => {
         // Example API call
         const fetchData = async () => {
             try {
-                const response = await fetch('https://mensa.barfuss.email/mensa/bremen/mensa-neustadtswall');
+                const api = 'https://mensa.barfuss.email/mensa/' + link;
+                const response = await fetch(api);
                 const json = await response.json();
 
                 // Extract the array from the nested JSON
@@ -36,6 +41,7 @@ const MensaDisplay: React.FC = () => {
 
     return (
         <div>
+            <h1 className="text-2xl font-bold mb-4">{items?.Name}</h1>
             {menus.map((item) => (
                 // Pass each item to the ItemComponent
                 <CounterDisplay menu={item} />

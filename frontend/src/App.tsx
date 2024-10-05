@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
         <div className="flex-1 w-2/3 mx-auto p-6 ">
           <div className="flex flex-col items-center">
-            <MensaDisplay />
+            <MensaDisplay link='bremen/mensa-neustadtswall' />
           </div>
         </div>
       </div>
