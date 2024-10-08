@@ -5,6 +5,7 @@ import  {
   RouterProvider,
 } from 'react-router-dom'
 import Index from './pages/index'
+import Mensa from './pages/mensa'
 import Error from './pages/error'
 import './index.css'
 
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Index />,
     errorElement: <Error />,
+  },
+  {
+    path: '/:city/:mensa',
+    element: <Mensa />,
   },
   {
     path: '/error',

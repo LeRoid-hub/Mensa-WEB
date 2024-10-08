@@ -15,9 +15,9 @@ const Navbar: React.FC = () => {
 
         {/* Login Button */}
         <div className="flex-1 text-right">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+         {/* <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
             Login
-          </button>
+          </button>*/}
         </div>
       </div>
     </nav>
